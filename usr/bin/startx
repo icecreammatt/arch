@@ -21,10 +21,10 @@ sysserverrc=/etc/X11/xinit/xserverrc
 defaultclient=xterm
 defaultserver=/usr/bin/X
 defaultclientargs=""
-defaultserverargs="-dpi 220"
+defaultserverargs=""
 defaultdisplay=":0"
 clientargs=""
-serverargs="-dpi 220"
+serverargs=""
 vtarg=""
 enable_xauth=1
 

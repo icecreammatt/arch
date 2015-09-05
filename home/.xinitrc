@@ -1,7 +1,5 @@
 #! /bin/bash
-VBoxClient-all &
 xsetroot -solid "#333333"
-xrandr --dpi 220
 
 DEFAULT_SESSION=i3
 

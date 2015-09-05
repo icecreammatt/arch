@@ -29,6 +29,4 @@ unset MANPATH
 # autostart systemd default session on tty1
 if [[ "$(tty)" == '/dev/tty1' ]]; then
 	exec startx
-	VBoxClient-all &
-	xrandr --dpi 220
 fi
