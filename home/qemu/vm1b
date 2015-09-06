@@ -1,0 +1,23 @@
+#!/bin/bash
+
+xrandr --output DVI-I-1 --off
+QEMU_PA_SAMPLES=128 QEMU_AUDIO_DRV=pa
+qemu-system-x86_64 -enable-kvm -m 8192 -cpu host,kvm=off -smp cores=4,threads=2 \
+-pflash /usr/share/ovmf/ovmf_x64.bin \
+-vga none \
+-soundhw hda \
+-device vfio-pci,host=01:00.0,multifunction=on \
+-device vfio-pci,host=01:00.1 \
+-drive file=/storage/windows8.img,id=disk,format=raw,if=none -device ide-hd,bus=ide.0,drive=disk \
+-drive file=/home/matt/windows81.iso,id=isocd,format=raw,if=none -device ide-cd,bus=ide.1,drive=isocd \
+-usb -usbdevice host:046d:c06b -usbdevice host:04d9:2013 \
+-boot menu=on \
+-vnc :1
+
+#-drive file=/storage/windows8.img,id=disk,format=raw,if=none -device scsi-hd,drive=disk \
+#-drive file=/home/matt/windows81.iso,id=isocd,format=raw,if=none -device scsi-cd,drive=isocd \
+#-drive file=/home/tully/VMs/virt.iso,id=virtiocd,if=none -device ide-cd,bus=ide.1,drive=virtiocd \
+#-device virtio-scsi-pci,id=scsi \
+#pkill conky
+#fixmonitors
+#conky -d
