@@ -1,5 +1,8 @@
 #!/bin/bash
 
+vfio-bind 0000:01:00.0
+vfio-bind 0000:01:00.1
+
 xrandr --output DVI-I-1 --off
 QEMU_PA_SAMPLES=128 QEMU_AUDIO_DRV=pa
 qemu-system-x86_64 -enable-kvm -m 8192 -cpu host,kvm=off -smp cores=4,threads=2 \
