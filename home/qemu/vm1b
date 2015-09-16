@@ -1,22 +1,59 @@
 #!/bin/bash
 
+# QEMU_ALSA_DAC_SIZE_IN_USEC: boolean, default = 0
+#   DAC period/buffer size in microseconds (otherwise in frames)
+# QEMU_ALSA_DAC_PERIOD_SIZE: integer, default = 1024
+#   DAC period size (0 to go with system default)
+# QEMU_ALSA_DAC_BUFFER_SIZE: integer, default = 4096
+#   DAC buffer size (0 to go with system default)
+# QEMU_ALSA_ADC_SIZE_IN_USEC: boolean, default = 0
+#   ADC period/buffer size in microseconds (otherwise in frames)
+# QEMU_ALSA_ADC_PERIOD_SIZE: integer, default = 0
+#   ADC period size (0 to go with system default)
+# QEMU_ALSA_ADC_BUFFER_SIZE: integer, default = 0
+#   ADC buffer size (0 to go with system default)
+# QEMU_ALSA_THRESHOLD: integer, default = 0
+#    (undocumented)
+# QEMU_ALSA_DAC_DEV: string, default = default
+#   DAC device name (for instance dmix)
+# QEMU_ALSA_ADC_DEV: string, default = default
+#   ADC device name
+
+
+# export QEMU_AUDIO_DRV="alsa oss"
+# export QEMU_ALSA_DAC_BUFFER_SIZE=512
+# export QEMU_ALSA_DAC_PERIOD_SIZE=170
+# export QEMU_ALSA_DAC_DEV="hda"
+export QEMU_AUDIO_DRV="alsa"
+
 vfio-bind 0000:01:00.0
 vfio-bind 0000:01:00.1
+#vfio-bind 0000:00:16.0
+#vfio-bind 0000:04:00.0
+#vfio-bind 0000:06:00.0
+#vfio-bind 0000:07:00.0
+vfio-bind 0000:03:00.0
+#vfio-bind 0000:00:03.0
+#vfio-bind 0000:00:1b.0
 
 xrandr --output DVI-I-1 --off
-QEMU_PA_SAMPLES=128 QEMU_AUDIO_DRV=pa
+QEMU_PA_SAMPLES=128 QEMU_AUDIO_DRV=alsa
 qemu-system-x86_64 -enable-kvm -m 8192 -cpu host,kvm=off -smp cores=4,threads=2 \
 -pflash /usr/share/ovmf/ovmf_x64.bin \
 -vga none \
--soundhw hda \
 -device vfio-pci,host=01:00.0,multifunction=on \
 -device vfio-pci,host=01:00.1 \
+-device vfio-pci,host=03:00.0 \
 -drive file=/storage/windows8.img,id=disk,format=raw,if=none -device ide-hd,bus=ide.0,drive=disk \
 -drive file=/home/matt/windows81.iso,id=isocd,format=raw,if=none -device ide-cd,bus=ide.1,drive=isocd \
 -usb -usbdevice host:046d:c06b -usbdevice host:04d9:2013 \
 -boot menu=on
-#-vnc :1
 
+#-device vfio-pci,host=06:00.0 \
+#-device vfio-pci,host=04:00.0 \
+#-device vfio-pci,host=07:00.0 \
+#-vnc :1
+#-soundhw sb16 \
 #-drive file=/storage/windows8.img,id=disk,format=raw,if=none -device scsi-hd,drive=disk \
 #-drive file=/home/matt/windows81.iso,id=isocd,format=raw,if=none -device scsi-cd,drive=isocd \
 #-drive file=/home/tully/VMs/virt.iso,id=virtiocd,if=none -device ide-cd,bus=ide.1,drive=virtiocd \
