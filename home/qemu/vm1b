@@ -24,20 +24,22 @@
 # export QEMU_ALSA_DAC_BUFFER_SIZE=512
 # export QEMU_ALSA_DAC_PERIOD_SIZE=170
 # export QEMU_ALSA_DAC_DEV="hda"
-export QEMU_AUDIO_DRV="alsa"
+# export QEMU_AUDIO_DRV="alsa"
 
-vfio-bind 0000:01:00.0
-vfio-bind 0000:01:00.1
+vfio-bind 0000:01:00.0 # Video
+vfio-bind 0000:01:00.1 # Video
+vfio-bind 0000:03:00.0 # Sound
+
 #vfio-bind 0000:00:16.0
 #vfio-bind 0000:04:00.0
 #vfio-bind 0000:06:00.0
 #vfio-bind 0000:07:00.0
-vfio-bind 0000:03:00.0
 #vfio-bind 0000:00:03.0
 #vfio-bind 0000:00:1b.0
 
-xrandr --output DVI-I-1 --off
-QEMU_PA_SAMPLES=128 QEMU_AUDIO_DRV=alsa
+#xrandr --output DVI-I-1 --off
+#QEMU_ALSA_DAC_BUFFER_SIZE=512 QEMU_ALSA_DAC_PERIOD_SIZE=170 QEMU_AUDIO_DRV=alsa qemu-system-x86_64 -enable-kvm -m 8192 -cpu host,kvm=off -smp cores=4,threads=2 \
+
 qemu-system-x86_64 -enable-kvm -m 8192 -cpu host,kvm=off -smp cores=4,threads=2 \
 -pflash /usr/share/ovmf/ovmf_x64.bin \
 -vga none \
