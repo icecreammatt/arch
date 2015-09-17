@@ -43,6 +43,7 @@ vfio-bind 0000:03:00.0 # Sound
 qemu-system-x86_64 -enable-kvm -m 8192 -cpu host,kvm=off -smp cores=4,threads=2 \
 -pflash /usr/share/ovmf/ovmf_x64.bin \
 -vga none \
+-device qxl \
 -device vfio-pci,host=01:00.0,multifunction=on \
 -device vfio-pci,host=01:00.1 \
 -device vfio-pci,host=03:00.0 \
