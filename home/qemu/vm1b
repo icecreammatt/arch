@@ -6,7 +6,7 @@ vfio-bind 0000:03:00.0 # Sound
 
 qemu-system-x86_64 \
     -enable-kvm \
-    -m 8192 \
+    -m 20480 \
     -cpu host,kvm=off \
     -smp cores=4,threads=2 \
     -pflash /usr/share/ovmf/ovmf_x64.bin \
