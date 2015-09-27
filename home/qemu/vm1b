@@ -19,8 +19,8 @@ qemu-system-x86_64 \
     -device ide-hd,bus=ide.0,drive=disk \
     -drive file=/home/matt/windows81.iso,id=isocd,format=raw,if=none \
     -device ide-cd,bus=ide.1,drive=isocd \
+    -device usb-host,hostbus=3,hostport=2 \
     -usb \
     -usbdevice host:046d:c06b \
     -usbdevice host:04d9:2013 \
-    -usbdevice host:046d:0a1f \
     -boot menu=on 2>>/usr/vm-errors.log
