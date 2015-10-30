@@ -1,5 +1,6 @@
 #! /bin/bash
 xsetroot -solid "#333333"
+setxkbmap -option ctrl:nocaps
 
 DEFAULT_SESSION=i3
 
