@@ -6,7 +6,8 @@ DEFAULT_SESSION=i3
 
 case $1 in
     i3)
-        exec i3
+        #exec i3
+        exec --no-startup-id compton -cCGb --backend glx --vsync opengl
         ;;
 
     *)
