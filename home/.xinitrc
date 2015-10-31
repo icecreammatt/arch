@@ -1,6 +1,6 @@
 #! /bin/bash
 xsetroot -solid "#333333"
-xrandr --output HDMI1 --auto --above HDMI2
+xrandr --output HDMI1 --auto --left-of HDMI2
 setxkbmap -option ctrl:nocaps
 
 DEFAULT_SESSION=i3
