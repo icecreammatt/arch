@@ -11,7 +11,6 @@ qemu-system-x86_64 \
     -smp cores=4,threads=2 \
     -pflash /usr/share/ovmf/ovmf_x64.bin \
     -device qxl \
-    -device e1000 \
     -device vfio-pci,host=01:00.0,multifunction=on \
     -device vfio-pci,host=01:00.1 \
     -device vfio-pci,host=03:00.0 \
@@ -19,11 +18,16 @@ qemu-system-x86_64 \
     -device ide-hd,bus=ide.0,drive=disk \
     -drive file=/home/matt/windows81.iso,id=isocd,format=raw,if=none \
     -device ide-cd,bus=ide.1,drive=isocd \
-    -usb \
-    -usbdevice host:046d:c06b \
-    -usbdevice host:04d9:2013 \
+    -usb -usbdevice host:04d9:2013 -usbdevice host:046d:c06b \
     -vnc :0 \
-    -boot menu=on 2>>/usr/vm-errors.log
+    -boot menu=on
+
+
+    # Ethernet fix by going to windows device manager and reinstalling drivers
+    #-machine smm=off \
+    #     Das Brown Keyboard        Logitech Broken Mouse
+    #-usb -usbdevice host:04d9:2013 -usbdevice host:046d:c06b \
 
     #-usbdevice host:046d:0a1f \
     #-vga none \
+    #--enable-kvm -machine smm=off \
